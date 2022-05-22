@@ -1,0 +1,142 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Checkbox toggle */
+input:checked ~ .dot {
+	transform: translateX(80%);
+	background-color: white;
+}
+input:checked ~ .dot-bg {
+	@apply bg-indigo-400;
+}
+
+/* bar chart colors */
+.gradient {
+	background: linear-gradient(
+		90deg,
+		var(--colorOne) 0%,
+		var(--colorTwo) var(--percent),
+		#94a3b8 var(--percent)
+	);
+}
+
+/* color themes for buttons */
+.color-theme {
+	/* text */
+	@apply text-slate-800;
+
+	@apply hover:text-white;
+	@apply active:text-white;
+
+	/* bg */
+	@apply bg-slate-300;
+
+	@apply hover:bg-slate-500;
+	@apply active:bg-slate-700;
+
+	/* outline */
+	@apply active:outline-slate-700;
+	@apply focus:outline-slate-700;
+
+	@apply outline-offset-1;
+}
+.color-accent {
+	/* text */
+	@apply text-green-800;
+
+	@apply hover:text-white;
+	@apply active:text-white;
+
+	/* bg */
+	@apply bg-green-300;
+
+	@apply hover:bg-green-400;
+	@apply active:bg-green-700;
+
+	/* outline */
+	@apply active:outline-green-400;
+	@apply focus:outline-green-400;
+
+	@apply outline-offset-1;
+}
+.color-main {
+	/* text */
+	@apply text-black;
+
+	@apply hover:text-white;
+	@apply active:text-white;
+
+	/* bg */
+	@apply bg-indigo-400;
+
+	@apply hover:bg-indigo-500;
+	@apply active:bg-indigo-800;
+
+	/* outline */
+	@apply active:outline-indigo-400;
+	@apply focus:outline-indigo-400;
+
+	@apply outline-offset-1;
+}
+
+/* modal animations for CSSTransitions */
+.modal-enter,
+.spinner-enter {
+	/* styles before appearance */
+	@apply opacity-0;
+}
+
+.modal-enter-active,
+.spinner-enter-active {
+	/* styles which are transitioned to */
+	@apply opacity-100;
+	@apply transition-all;
+}
+.modal-enter-done,
+.spinner-enter-done {
+	/* stales after transition end */
+}
+.modal-contents-enter,
+.spinner-contents-enter {
+	/* styles before appearance */
+	@apply top-0;
+}
+
+.modal-contents-enter-active,
+.spinner-contents-enter-active {
+	/* styles which are transitioned to */
+	@apply opacity-100;
+	@apply top-20;
+	@apply transition-all;
+}
+
+.modal-exit,
+.spinner-exit {
+	/* styles before appearance */
+	@apply opacity-100;
+}
+.modal-exit-active,
+.spinner-exit-active {
+	/* styles which are transitioned to */
+	@apply opacity-0;
+	@apply transition-all;
+}
+.modal-exit-done,
+.spinner-exit-done {
+	/* stales after transition end */
+}
+
+/* Spinner animation */
+@keyframes spinner-circular {
+	0% {
+		stroke-dashoffset: 306;
+	}
+	50% {
+		stroke-dasharray: 40, 134;
+	}
+	100% {
+		stroke-dasharray: 1, 174;
+		stroke-dashoffset: 132;
+	}
+}

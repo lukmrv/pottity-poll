@@ -1,0 +1,58 @@
+/* Toastify custom colors */
+.Toastify__toast-container {
+	width: 320px;
+}
+
+/* Default background and color */
+.Toastify__toast--default {
+}
+/* Default progress */
+.Toastify__toast--default .Toastify__progress-bar {
+}
+/* Default icon */
+.Toastify__toast--default .Toastify__toast-icon {
+}
+
+/* Info background and color */
+.Toastify__toast--info {
+}
+/* Info progress */
+.Toastify__toast--info .Toastify__progress-bar {
+}
+/* Error icon */
+.Toastify__toast--info .Toastify__toast-icon {
+}
+
+/* Success background and color */
+.Toastify__toast--success {
+}
+/* Success progress */
+.Toastify__toast--success .Toastify__progress-bar {
+}
+/* Success icon */
+.Toastify__toast--success .Toastify__toast-icon {
+}
+
+/* Warging background and color */
+.Toastify__toast--warning {
+}
+/* Warning progress */
+.Toastify__toast--warning .Toastify__progress-bar {
+}
+/* Warning icon */
+.Toastify__toast--warning .Toastify__toast-icon {
+}
+
+/* Error background and color */
+.Toastify__toast--error {
+	@apply text-slate-200 !important;
+	@apply bg-slate-700 !important;
+}
+/* Error progress */
+.Toastify__toast--error .Toastify__progress-bar {
+	@apply bg-red-500 !important;
+}
+/* Error icon */
+.Toastify__toast--error .Toastify__toast-icon {
+	--toastify-icon-color-error: rgb(220, 38, 38) !important;
+}
