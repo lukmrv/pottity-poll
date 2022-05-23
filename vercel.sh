@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash - the script is not set up in vercel at the moment
 
 echo "VERCEL_GIT_COMMIT_REF: $VERCEL_GIT_COMMIT_REF"
 

@@ -198,7 +198,7 @@ const OptionSelect = ({ props }: { props: { pollQuestion: string } }) => {
 				/>
 
 				<main className="container p-10 rounded-md mx-auto max-w-3xl bg-slate-600 border-t-4 border-indigo-500">
-					<div className="flex flex-col items-start gap-2">
+					<div className="flex flex-col items-start gap-2 relative">
 						{!pollQuestion ? (
 							<span className="pb-4 font-bold text-xl text-white">
 								Coud not find such poll question
@@ -209,8 +209,12 @@ const OptionSelect = ({ props }: { props: { pollQuestion: string } }) => {
 							</span>
 						)}
 
-						{isValidationError && <p>{errors?.choiceCheckbox?.message}</p>}
-						{isValidationError && <p>{errors?.choiceRadioButton?.message}</p>}
+						{isValidationError && (
+							<p className="absolute right-100 top-9 text-red-400 text-xs sm:right-0 sm:text-base sm:top-2">
+								{errors?.choiceCheckbox?.message ||
+									errors?.choiceRadioButton?.message}
+							</p>
+						)}
 
 						{pollQuestionState !== null &&
 							Object.keys(pollQuestionState?.options).map((option: string, idx) =>

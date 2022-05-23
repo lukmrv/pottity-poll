@@ -17,9 +17,7 @@ import generateToken from "@utils/generateToken";
 
 import { Question } from "@services/fetchApiHelpers.types";
 
-
 const Home = () => {
-
 	const router = useRouter();
 
 	const [loading, setLoading] = useState<boolean>(false);
@@ -135,8 +133,13 @@ const Home = () => {
 							Topic / Question
 						</label>
 
-						{errors?.pollTopic && <p>{errors?.pollTopic?.message}</p>}
 						<div className="w-full relative">
+							{errors?.pollTopic && (
+								<p className="absolute right-0 -top-7 text-red-400 text-xs sm:text-base sm:-top-8">
+									{errors?.pollTopic?.message}
+								</p>
+							)}
+
 							{/* <TextInput
 								name="Question"
 								type="text"
@@ -148,50 +151,62 @@ const Home = () => {
 							<input
 								className={classNames(
 									"w-full px-3 py-2 rounded-md border-none focus:outline focus:outline-2 text-slate-800 bg-slate-400 placeholder-slate-500 focus:outline-indigo-800",
-									{ "focus:outline-4 focus:outline-red-400": errors?.pollTopic }
+									{ "focus:outline-2 focus:outline-red-400": errors?.pollTopic }
 								)}
 								placeholder="Write what you'd like to poll about"
 								{...register("pollTopic", {
-									required: "topic is required!",
+									required: "Topic is required!",
 								})}
 							/>
 						</div>
 
 						<span className="font-bold text-lg text-white pt-4">Options</span>
 
-						{isOptionsError && <p>At least 2 options required</p>}
+						<div className="relative flex flex-col w-full gap-2">
+							{isOptionsError && (
+								<p className="absolute right-0 -top-7 text-red-400 text-xs sm:text-base sm:-top-8">
+									At least 2 options required
+								</p>
+							)}
 
-						{/* React hook form magic */}
-						{fields.map((item, index, arr) => (
-							<div key={item.id} className="relative flex flex-col w-full gap-2">
-								<input
-									className={classNames(
-										"w-full px-3 py-2 rounded-md border-none focus:outline focus:outline-2 text-slate-800 bg-slate-400 placeholder-slate-500 focus:outline-indigo-800",
-										{
-											"focus:outline-4 focus:outline-red-400": isOptionsError,
-										}
+							{/* React hook form magic */}
+							{fields.map((item, index, arr) => (
+								<div key={item.id} className="relative flex flex-col w-full gap-2">
+									<input
+										className={classNames(
+											"w-full px-3 py-2 rounded-md border-none focus:outline focus:outline-2 text-slate-800 bg-slate-400 placeholder-slate-500 focus:outline-indigo-800",
+											{
+												"focus:outline-2 focus:outline-red-400":
+													isOptionsError,
+											}
+										)}
+										placeholder={`Option ${index + 1}`}
+										{...register(
+											`options[${index}].value` as "options.0.value",
+											{
+												// setting required based on the number of provided options. If < 2 - set to true, else false
+												required:
+													Object.keys(
+														filteredNonEmptyOptions(
+															allFieldsValues.options
+														)
+													).length < 2,
+											}
+										)}
+									/>
+
+									{arr.length > 2 && (
+										<Button
+											buttonInside
+											color="color-theme"
+											onClick={() => remove(index)}
+										>
+											&#10005;
+										</Button>
 									)}
-									placeholder={`Option ${index + 1}`}
-									{...register(`options[${index}].value` as "options.0.value", {
-										// setting required based on the number of provided options. If < 2 - set to true, else false
-										required:
-											Object.keys(
-												filteredNonEmptyOptions(allFieldsValues.options)
-											).length < 2,
-									})}
-								/>
-
-								{arr.length > 2 && (
-									<Button
-										buttonInside
-										color="color-theme"
-										onClick={() => remove(index)}
-									>
-										&#10005;
-									</Button>
-								)}
-							</div>
-						))}
+								</div>
+							))}
+						</div>
 
 						<Button
 							color="color-theme"
