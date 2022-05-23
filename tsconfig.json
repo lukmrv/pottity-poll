@@ -21,6 +21,7 @@
 			"@components/*": ["src/common/components/*"],
 			"@styles/*": ["src/common/styles/*"],
 			"@utils/*": ["src/common/utils/*"],
+			"@modules/*": ["src/modules/*"],
 			"@services/*": ["src/common/services/*"],
 			"@validations/*": ["src/common/validations/*"]
 		}
