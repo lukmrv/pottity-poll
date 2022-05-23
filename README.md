@@ -22,18 +22,18 @@ First, run the development server:
 yarn dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result. <br />
 
-TODO - current:
+TODO - current: <br />
 
-[ ] internationalization
-[ ] ably integration
-[ ] poll end date
-[ ] structural improvements (files separation)
+[ ] internationalization <br />
+[ ] ably integration <br />
+[ ] poll end date <br />
+[ ] structural improvements (files separation) <br />
 
-----
+---- <br />
 
-[ ] poll comments
-[ ] edit option
-[ ] user accounts (lotta things)
+[ ] poll comments <br />
+[ ] edit option <br />
+[ ] user accounts (lotta things) <br />
 [ ] email notifications
