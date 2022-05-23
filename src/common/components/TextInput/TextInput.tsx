@@ -4,8 +4,8 @@ import classNames from "classnames";
 
 type Props = {
 	idx?: number;
-	value: string;
-	onChange: Function;
+	value?: string;
+	onChange?: Function;
 	buttonInside?: boolean;
 	// this is workaround for rest attributes
 	[x: string]: any;
@@ -15,8 +15,8 @@ export const TextInput = memo(({ idx, value, onChange, buttonInside, ...rest }: 
 	return (
 		<input
 			{...rest}
-			value={value}
-			onChange={(e) => onChange(e.target.value, idx)}
+			value={value && value}
+			onChange={(e) => onChange && onChange(e.target.value, idx)}
 			autoComplete="off"
 			className={classNames(
 				{ "pr-12": buttonInside },

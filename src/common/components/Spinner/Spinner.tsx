@@ -35,7 +35,10 @@ const Spinner = ({
 				*/
 				timeout={{ enter: 150, exit: 0 }}
 			>
-				<div ref={nodeRef} className="spinner fixed w-full h-screen inset-0 bg-slate-600/80">
+				<div
+					ref={nodeRef}
+					className="spinner fixed w-full h-screen inset-0 bg-slate-600/80"
+				>
 					<div className="w-full h-full">
 						<svg
 							className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2"

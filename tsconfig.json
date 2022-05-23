@@ -18,11 +18,11 @@
 		"strictNullChecks": true,
 		"baseUrl": ".",
 		"paths": {
-			"@components/*": ["components/*"],
-			"@styles/*": ["styles/*"],
-			"@utils/*": ["utils/*"],
-			"@services/*": ["services/*"],
-			"@validations/*": ["validations/*"]
+			"@components/*": ["src/common/components/*"],
+			"@styles/*": ["src/common/styles/*"],
+			"@utils/*": ["src/common/utils/*"],
+			"@services/*": ["src/common/services/*"],
+			"@validations/*": ["src/common/validations/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

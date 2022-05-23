@@ -61,7 +61,9 @@ export const Modal = ({ showModal, title, children, onClose }: Props) => {
 						onClick={(e) => e.stopPropagation()}
 					>
 						<div className="p-6 flex items-center justify-center text-2xl font-bold text-white">
-							<h4 className="modal-title max-w-[70%] text-center text-green-400">{title}</h4>
+							<h4 className="modal-title max-w-[70%] text-center text-green-400">
+								{title}
+							</h4>
 							<div className="absolute right-4">
 								<button
 									className="flex w-auto rounded-md px-4 py-2 hover:text-slate-300 active:outline active:outline-2"

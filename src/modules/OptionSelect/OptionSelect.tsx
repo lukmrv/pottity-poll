@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
 import { useState, useEffect } from "react";
 import { PollQuestion, PrismaClient } from "@prisma/client";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 
 import copyToClipboard from "@utils/copyToClipboard";
 
@@ -15,13 +15,11 @@ import HeadSection from "@components/HeadSection/HeadSection";
 import Spinner from "@components/Spinner/Spinner";
 import ShareSection from "@components/ShareSection/ShareSection";
 
-import notify from "utils/notify";
+import notify from "@utils/notify";
 import * as API from "@services/fetchApiHelpers";
 import generateToken from "@utils/generateToken";
 
 import { PollVote } from "@services/fetchApiHelpers.types";
-
-import { optionsSchema } from "@validations/validationSchema";
 
 // this interface extends picked types from generated Prisma type fo pollQuestion
 // and then adds types for options object
@@ -31,16 +29,22 @@ interface PollQuestionType
 	createdAt: Pick<PollQuestion, "createdAt">;
 }
 
-const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServerSideProps>) => {
+const OptionSelect = ({ props }: { props: { pollQuestion: string } }) => {
 	const { pollQuestion } = props;
 
 	const router = useRouter();
 
 	const [loading, setLoading] = useState(false);
-
 	const [isButtonDisabled, setIsButtonDisabled] = useState(false);
-
 	const [showModal, setShowModal] = useState<boolean>(false);
+
+	const {
+		register,
+		handleSubmit,
+		formState: { errors },
+	} = useForm({
+		reValidateMode: "onChange",
+	});
 
 	const [pollQuestionState, setPollQuestionState] = useState<PollQuestionType>(() =>
 		JSON.parse(pollQuestion)
@@ -98,7 +102,10 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 				if (currentQuestionState.choice.includes(optionNumber)) {
 					currentQuestionState = {
 						...currentQuestionState,
-						choice: removeItemOnce(currentQuestionState.choice as number[], optionNumber),
+						choice: removeItemOnce(
+							currentQuestionState.choice as number[],
+							optionNumber
+						),
 					};
 				}
 				return currentQuestionState;
@@ -127,20 +134,8 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 		});
 	};
 
-	const handleSubmitVote = async () => {
-		// returns false if the fields are valid
-		const validationError = await optionsSchema
-			.validate(pollVote.choice)
-			.then(() => false)
-			.catch((err) => err.message);
-
-		// preliminary validation
-		if (validationError) {
-			return notify("warning", validationError, "top-center");
-		}
-
+	const handleSubmitVote = () => {
 		setLoading(true);
-
 		API.createVote(router.query.question_id as string, pollVote)
 			.then((response) => {
 				if (response?.success) {
@@ -159,11 +154,19 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 			});
 	};
 
+	const isValidationError =
+		!pollVote.choice.length &&
+		(errors?.choiceCheckbox?.message || errors?.choiceRadioButton?.message);
+
 	return (
 		<>
 			<Spinner enabled={loading} />
 
-			<Modal title="Vote succesfull!" showModal={showModal} onClose={() => setShowModal(false)}>
+			<Modal
+				title="Vote succesfull!"
+				showModal={showModal}
+				onClose={() => setShowModal(false)}
+			>
 				<div className="pb-6">
 					<div className="flex justify-center text-slate-400">Thanks for the vote!</div>
 					<div className="flex justify-center text-center text-slate-400">
@@ -206,20 +209,35 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 							</span>
 						)}
 
+						{isValidationError && <p>{errors?.choiceCheckbox?.message}</p>}
+						{isValidationError && <p>{errors?.choiceRadioButton?.message}</p>}
+
 						{pollQuestionState !== null &&
 							Object.keys(pollQuestionState?.options).map((option: string, idx) =>
 								pollQuestionState?.multiselect ? (
 									<Checkbox
+										passedref={register("choiceCheckbox", {
+											// no error when at least one checkbox of "choiceCheckbox" name is chosen'
+											required:
+												pollVote?.choice?.length === 0 &&
+												"Choose one or more options!",
+										})}
 										name="name-for-radio"
 										key={option[0]}
 										labelText={pollQuestionState?.options[option]}
 										id={pollQuestionState?.options[option]}
-										onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-											selectOptionHandler(option, e)
-										}
+										onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+											selectOptionHandler(option, e);
+										}}
 									/>
 								) : (
 									<RadioButton
+										passedref={register("choiceRadioButton", {
+											// no error when at least one checkbox of "choiceCheckbox" name is chosen'
+											required:
+												pollVote?.choice?.length === 0 &&
+												"Choose your option!",
+										})}
 										name="name-for-radio"
 										key={option[0]}
 										labelText={pollQuestionState.options[option]}
@@ -238,7 +256,10 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 
 						<div className="text-1xl font-medium text-slate-500">
 							<span>Poll created at:</span>
-							<span>{pollQuestionState?.createdAt && pollQuestionState?.createdAt.toString()}</span>
+							<span>
+								{pollQuestionState?.createdAt &&
+									pollQuestionState?.createdAt.toString()}
+							</span>
 						</div>
 
 						{pollQuestionState !== null && pollQuestionState.endsAt && (
@@ -255,11 +276,18 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 
 						{pollQuestion ? (
 							<div className="grid w-full gap-2 sm:flex">
-								<Button color="color-main" disabled={isButtonDisabled} onClick={handleSubmitVote}>
+								<Button
+									color="color-main"
+									disabled={isButtonDisabled}
+									onClick={handleSubmit(handleSubmitVote)}
+								>
 									Submit vote
 								</Button>
 
-								<StyledLink color="color-accent" to={`/poll/${pollQuestionState?.id}/results`}>
+								<StyledLink
+									color="color-accent"
+									to={`/poll/${pollQuestionState?.id}/results`}
+								>
 									Show poll results
 								</StyledLink>
 
@@ -281,21 +309,4 @@ const QuestionId: NextPage = (props: InferGetServerSidePropsType<typeof getServe
 	);
 };
 
-const prisma = new PrismaClient();
-
-// This gets called on every request
-export const getServerSideProps: GetServerSideProps = async (context) => {
-	const { question_id } = context.query;
-
-	const pollQuestion = await prisma.pollQuestion.findUnique({
-		where: {
-			id: question_id as string,
-		},
-	});
-
-	return {
-		props: { pollQuestion: JSON.stringify(pollQuestion) },
-	};
-};
-
-export default QuestionId;
+export default OptionSelect;

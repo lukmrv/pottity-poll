@@ -23,3 +23,11 @@ import * as yup from "yup";
 // 		})
 // 		.min(2),
 // });
+
+// export const optionsSchema = yup
+// 	.array()
+// 	.of(yup.number())
+// 	.test({
+// 		message: "The error message if length > 0",
+// 		test: (arr) => arr.length > 0,
+// 	});

@@ -27,7 +27,9 @@ const PollResults: NextPage = (props: InferGetServerSidePropsType<typeof getServ
 	const [pollOptionsArray, setPollOptionsArray] = useState<string[]>(
 		() =>
 			pollQuestionState?.options &&
-			Object.keys(pollQuestionState?.options).map((option) => pollQuestionState.options[option])
+			Object.keys(pollQuestionState?.options).map(
+				(option) => pollQuestionState.options[option]
+			)
 	);
 
 	const [results, setResults] = useState<Results>(() => {
@@ -64,7 +66,9 @@ const PollResults: NextPage = (props: InferGetServerSidePropsType<typeof getServ
 
 				<main className="container p-10 rounded-md mx-auto max-w-3xl bg-slate-600 border-t-4 border-indigo-500">
 					<div className="flex flex-col items-start gap-2">
-						<span className="pb-4 font-bold text-xl text-white">{pollQuestionState?.question}</span>
+						<span className="pb-4 font-bold text-xl text-white">
+							{pollQuestionState?.question}
+						</span>
 
 						<HorizontalBarChart collectedResults={results} />
 
