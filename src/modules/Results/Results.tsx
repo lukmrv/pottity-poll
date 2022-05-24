@@ -7,11 +7,15 @@ import ShareSection from "@components/ShareSection/ShareSection";
 
 import { PollVote } from "@services/fetchApiHelpers.types";
 
-type ResultsType = {
+interface ResultsType {
 	[x: string]: number;
-};
+}
 
-const Results = ({ props }: { props: { pollQuestion: string } }) => {
+interface Results {
+	props: { pollQuestion: string };
+}
+
+const Results = ({ props }: Results) => {
 	const { pollQuestion } = props;
 
 	const [pollQuestionState, setPollQuestionState] = useState(() => JSON.parse(pollQuestion));

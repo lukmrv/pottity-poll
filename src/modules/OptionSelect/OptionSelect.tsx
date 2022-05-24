@@ -29,7 +29,11 @@ interface PollQuestionType
 	createdAt: Pick<PollQuestion, "createdAt">;
 }
 
-const OptionSelect = ({ props }: { props: { pollQuestion: string } }) => {
+interface OptionSelect {
+	props: { pollQuestion: string };
+}
+
+const OptionSelect = ({ props }: OptionSelect) => {
 	const { pollQuestion } = props;
 
 	const router = useRouter();

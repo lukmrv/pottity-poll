@@ -2,7 +2,7 @@ import React from "react";
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import { useForm, useFieldArray, FieldError } from "react-hook-form";
+import { useForm, useFieldArray } from "react-hook-form";
 import classNames from "classnames";
 
 import TextInput from "@components/TextInput/TextInput";
@@ -35,8 +35,6 @@ const Home = () => {
 			options: [{ value: "" }, { value: "" }],
 		},
 		reValidateMode: "onChange",
-
-		// resolver: yupResolver(pollVoteSchema),
 	});
 	const { fields, append, remove } = useFieldArray({
 		control,
