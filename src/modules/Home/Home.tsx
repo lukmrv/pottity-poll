@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useForm, useFieldArray } from "react-hook-form";
 import classNames from "classnames";
+import { useTranslation } from "next-i18next";
 
 import TextInput from "@components/TextInput/TextInput";
 import Button from "@components/Button/Button";
@@ -18,6 +19,7 @@ import generateToken from "@utils/generateToken";
 import { Question } from "@services/fetchApiHelpers.types";
 
 const Home = () => {
+	const { t } = useTranslation();
 	const router = useRouter();
 
 	const [loading, setLoading] = useState<boolean>(false);
@@ -129,6 +131,8 @@ const Home = () => {
 					<div className="flex flex-col items-start gap-2">
 						<label className="font-bold text-lg text-white" htmlFor="question-input">
 							Topic / Question
+							<br />
+							{t("one.two")}
 						</label>
 
 						<div className="w-full relative">

@@ -19,6 +19,15 @@ const NavBar = () => {
 							About
 						</span>
 					</Link>
+					<Link href={`/`} passHref>
+						<span className="flex items-center h-full text-slate-500 hover:text-white cursor-pointer">
+							Explore
+						</span>
+					</Link>
+					<select name="" id="">
+						<option value="en">EN</option>
+						<option value="pl">PL</option>
+					</select>
 				</nav>
 			</header>
 		</>

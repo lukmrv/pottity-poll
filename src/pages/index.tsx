@@ -1,5 +1,5 @@
 import React from "react";
-import type { NextPage } from "next";
+import { serverSideTranslations } from "next-i18next/serverSideTranslations";
 
 import Home from "src/modules/Home/Home";
 
@@ -7,7 +7,19 @@ import Home from "src/modules/Home/Home";
 // import { useAppDispatch, useAppSelector } from "@utils/redux/reduxHooks";
 // import { increment, decrement, incrementByAmount, selectExample } from "@utils/redux/exampleSlice";
 
-const Index: NextPage = () => {
+interface Props {
+	locale: string;
+}
+
+export async function getStaticProps({ locale }: Props) {
+	return {
+		props: {
+			...(await serverSideTranslations(locale, ["common"])),
+		},
+	};
+}
+
+const Index = () => {
 	// const dispatch = useAppDispatch();
 	// const exampleStoreValue = useAppSelector(selectExample);
 

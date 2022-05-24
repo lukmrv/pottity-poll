@@ -6,6 +6,7 @@ import Layout from "@components/Layout/Layout";
 // import { store } from "@utils/redux/store";
 
 // import { Provider } from "react-redux";
+import { appWithTranslation } from "next-i18next";
 import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -36,4 +37,4 @@ function MyApp({ Component, pageProps }: AppProps) {
 	);
 }
 
-export default MyApp;
+export default appWithTranslation(MyApp);
