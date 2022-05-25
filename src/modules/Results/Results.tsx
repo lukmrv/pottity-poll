@@ -1,4 +1,5 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useTranslation } from "next-i18next";
 
 import StyledLink from "@components/StyledLink/StyledLink";
 import HorizontalBarChart from "@components/HorizontalBarChart/HorizontalBarChart";
@@ -16,6 +17,7 @@ interface Results {
 }
 
 const Results = ({ props }: Results) => {
+	const { t } = useTranslation("results-page");
 	const { pollQuestion } = props;
 
 	const [pollQuestionState, setPollQuestionState] = useState(() => JSON.parse(pollQuestion));
@@ -61,7 +63,7 @@ const Results = ({ props }: Results) => {
 	return (
 		<div>
 			<div className="flex flex-col items-center gap-12">
-				<HeadSection mainText="Poll results" />
+				<HeadSection mainText={t("title.main")} />
 
 				<main className="container p-10 rounded-md mx-auto max-w-3xl bg-slate-600 border-t-4 border-indigo-500">
 					<div className="flex flex-col items-start gap-2">
@@ -78,10 +80,10 @@ const Results = ({ props }: Results) => {
 
 						<div className="flex gap-2 mt-4">
 							<StyledLink color="color-theme" to={`/poll/${pollQuestionState?.id}`}>
-								Go back to poll
+								{t("controls.back")}
 							</StyledLink>
 							<StyledLink color="color-main" to="/">
-								Create new poll!
+								{t("controls.new")}
 							</StyledLink>
 						</div>
 					</div>

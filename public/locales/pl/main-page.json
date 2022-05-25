@@ -1,0 +1,9 @@
+{
+	"title": {
+		"main": "Utwórz głosowanie",
+		"sub": "Wypełnij poniższe pola, aby utworzyć głosowanie."
+	},
+	"topic": { "header": "Temat / Pytanie", "placeholder": "Podaj treść pytania" },
+	"options": { "header": "Opcje", "placeholder": "Opcja" },
+	"controls": { "multiselect": "Zezwól na wiele odpowiedzi", "create": "Utwórz" }
+}

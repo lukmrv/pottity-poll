@@ -2,8 +2,11 @@ import type { NextPage } from "next";
 import { useState } from "react";
 import CopyLink from "@components/CopyLink/CopyLink";
 import { FaShareAlt } from "react-icons/fa";
+import { useTranslation } from "next-i18next";
 
 const ShareSection: NextPage = () => {
+	const { t } = useTranslation("share");
+
 	const [currentLink, setCurrentLink] = useState<string>(() => {
 		if (typeof window !== "undefined") {
 			// exclude results page (so on the results page the poll itself is shared)
@@ -21,7 +24,7 @@ const ShareSection: NextPage = () => {
 				<main className="container p-10 rounded-md mx-auto max-w-3xl bg-slate-600 border-t-4 border-slate-500">
 					<div className="flex flex-col items-start gap-2">
 						<span className="pb-4 gap-4 flex items-center font-bold text-xl text-white">
-							<FaShareAlt /> Share
+							<FaShareAlt /> {t("share.header")}
 						</span>
 
 						{/* <div className="text-1xl font-medium text-slate-500">

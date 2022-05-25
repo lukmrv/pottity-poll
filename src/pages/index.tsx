@@ -14,7 +14,13 @@ interface Props {
 export async function getStaticProps({ locale }: Props) {
 	return {
 		props: {
-			...(await serverSideTranslations(locale, ["common"])),
+			...(await serverSideTranslations(locale, [
+				"common",
+				"main-page",
+				"header",
+				"footer",
+				"validations",
+			])),
 		},
 	};
 }

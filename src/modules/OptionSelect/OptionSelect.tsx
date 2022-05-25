@@ -3,6 +3,7 @@ import { PollQuestion, PrismaClient } from "@prisma/client";
 import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { useTranslation } from "next-i18next";
 
 import copyToClipboard from "@utils/copyToClipboard";
 
@@ -34,6 +35,8 @@ interface OptionSelect {
 }
 
 const OptionSelect = ({ props }: OptionSelect) => {
+	const { t } = useTranslation(["vote-page", "validations"]);
+
 	const { pollQuestion } = props;
 
 	const router = useRouter();
@@ -167,14 +170,16 @@ const OptionSelect = ({ props }: OptionSelect) => {
 			<Spinner enabled={loading} />
 
 			<Modal
-				title="Vote succesfull!"
+				title={t("vote-page:modal.title")}
 				showModal={showModal}
 				onClose={() => setShowModal(false)}
 			>
 				<div className="pb-6">
-					<div className="flex justify-center text-slate-400">Thanks for the vote!</div>
+					<div className="flex justify-center text-slate-400">
+						{t("vote-page:modal.thankyou")}
+					</div>
 					<div className="flex justify-center text-center text-slate-400">
-						View the results or share this poll with others!
+						{t("vote-page:modal.info")}
 					</div>
 				</div>
 				<div className="grid grid-cols-2 gap-2">
@@ -184,28 +189,25 @@ const OptionSelect = ({ props }: OptionSelect) => {
 							router.push(`/poll/${pollQuestionState?.id}/results`);
 						}}
 					>
-						Show results
+						{t("vote-page:modal.control.results")}
 					</Button>
 					<Button color="color-theme" onClick={() => copyToClipboard(currentLink)}>
-						Copy link
+						{t("vote-page:modal.control.copy")}
 					</Button>
 				</div>
 			</Modal>
 
 			<div className="flex flex-col items-center gap-12">
 				<HeadSection
-					mainText="Vote!"
-					subText={`Select one ${
-						pollQuestionState?.multiselect ? "or more options" : "option"
-					} in the below
-					poll form`}
+					mainText={t("vote-page:title.main")}
+					subText={t("vote-page:title.sub")}
 				/>
 
 				<main className="container p-10 rounded-md mx-auto max-w-3xl bg-slate-600 border-t-4 border-indigo-500">
 					<div className="flex flex-col items-start gap-2 relative">
 						{!pollQuestion ? (
 							<span className="pb-4 font-bold text-xl text-white">
-								Coud not find such poll question
+								{t("vote-page:no-such-question")}
 							</span>
 						) : (
 							<span className="pb-4 font-bold text-xl text-white">
@@ -228,7 +230,7 @@ const OptionSelect = ({ props }: OptionSelect) => {
 											// no error when at least one checkbox of "choiceCheckbox" name is chosen'
 											required:
 												pollVote?.choice?.length === 0 &&
-												"Choose one or more options!",
+												t("validations:validation-vote-page.select"),
 										})}
 										name="name-for-radio"
 										key={option[0]}
@@ -244,7 +246,7 @@ const OptionSelect = ({ props }: OptionSelect) => {
 											// no error when at least one checkbox of "choiceCheckbox" name is chosen'
 											required:
 												pollVote?.choice?.length === 0 &&
-												"Choose your option!",
+												t("validations:validation-vote-page.select_one"),
 										})}
 										name="name-for-radio"
 										key={option[0]}
@@ -263,7 +265,7 @@ const OptionSelect = ({ props }: OptionSelect) => {
 						</div>
 
 						<div className="text-1xl font-medium text-slate-500">
-							<span>Poll created at:</span>
+							<span>{t("vote-page:controls.created")}</span>
 							<span>
 								{pollQuestionState?.createdAt &&
 									pollQuestionState?.createdAt.toString()}
@@ -272,7 +274,7 @@ const OptionSelect = ({ props }: OptionSelect) => {
 
 						{pollQuestionState !== null && pollQuestionState.endsAt && (
 							<div className="text-1xl font-medium text-slate-500">
-								<span>Poll ends at:</span>
+								<span>{t("vote-page:controls.ends")}</span>
 								<span>{pollQuestionState?.endsAt.toString()}</span>
 							</div>
 						)}
@@ -289,23 +291,23 @@ const OptionSelect = ({ props }: OptionSelect) => {
 									disabled={isButtonDisabled}
 									onClick={handleSubmit(handleSubmitVote)}
 								>
-									Submit vote
+									{t("vote-page:controls.submit")}
 								</Button>
 
 								<StyledLink
 									color="color-accent"
 									to={`/poll/${pollQuestionState?.id}/results`}
 								>
-									Show poll results
+									{t("vote-page:controls.results")}
 								</StyledLink>
 
 								<StyledLink color="color-theme" to="/">
-									Go to main page
+									{t("vote-page:controls.main")}
 								</StyledLink>
 							</div>
 						) : (
 							<StyledLink color="color-theme" to="/">
-								Go to main page
+								{t("vote-page:controls.main")}
 							</StyledLink>
 						)}
 					</div>

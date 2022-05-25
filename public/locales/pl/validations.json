@@ -1,0 +1,10 @@
+{
+	"validation-main-page": {
+		"title": "Pytanie jest wymagane!",
+		"options": "Wymagane co najmniej 2 opcje"
+	},
+	"validation-vote-page": {
+		"select": "Wybierz jedną lub więcej opcji!",
+		"select_one": "Wybierz jedną opcję!"
+	}
+}

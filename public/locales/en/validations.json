@@ -1,0 +1,10 @@
+{
+	"validation-main-page": {
+		"title": "Topic is required!",
+		"options": "At least 2 options required"
+	},
+	"validation-vote-page": {
+		"select": "Choose one or more options!",
+		"select_one": "Choose your option!"
+	}
+}

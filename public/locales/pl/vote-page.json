@@ -1,0 +1,23 @@
+{
+	"title": {
+		"main": "Głosuj!",
+		"sub": "Wybierz jedną lub więcej opcji z poniższego głosowania."
+	},
+	"controls": {
+		"created": "Utworzono",
+		"ends": "Głosowanie otwarte do",
+		"submit": "Prześlij głos",
+		"results": "Pokaż wyniki głosowania",
+		"main": "Przejdź do strony głównej"
+	},
+	"modal": {
+		"title": "Pomyślnie zagłosowano",
+		"thankyou": "Dzięki za głosowanie!",
+		"info": "Wyświetl wyniki lub udostępnij tę głosowanie innym!",
+		"control": {
+			"results": "Pokaż wyniki",
+			"copy": "Skopiuj link"
+		}
+	},
+	"no-such-question": "Nie udało się znaleźć takiego pytania"
+}

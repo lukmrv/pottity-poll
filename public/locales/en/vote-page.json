@@ -1,0 +1,23 @@
+{
+	"title": {
+		"main": "Vote!",
+		"sub": "Select one or more options in the below poll form."
+	},
+	"controls": {
+		"created": "Poll created at",
+		"ends": "Poll ends at",
+		"submit": "Submit vote",
+		"results": "Show poll results",
+		"main": "Go to main page"
+	},
+	"modal": {
+		"title": "Vote successfull!",
+		"thankyou": "Thanks for the vote!",
+		"info": "View the results or share this poll with others!",
+		"control": {
+			"results": "Show results",
+			"copy": "Copy link"
+		}
+	},
+	"no-such-question": "Could not find such poll question"
+}

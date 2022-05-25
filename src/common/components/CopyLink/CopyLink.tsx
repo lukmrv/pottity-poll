@@ -1,6 +1,7 @@
 import { FaLock } from "react-icons/fa";
 import { HiClipboardCopy } from "react-icons/hi";
 import copyToClipboard from "@utils/copyToClipboard";
+import { useTranslation } from "next-i18next";
 
 type Props = {
 	idx?: number;
@@ -10,6 +11,8 @@ type Props = {
 };
 
 const CopyLink = ({ idx, value, ...rest }: Props) => {
+	const { t } = useTranslation("share");
+
 	return (
 		<div className="relative w-full max-w-3xl rounded-md">
 			<FaLock className="absolute h-full left-4 text-slate-300" />
@@ -25,7 +28,7 @@ const CopyLink = ({ idx, value, ...rest }: Props) => {
 				onClick={() => copyToClipboard(value)}
 			>
 				<HiClipboardCopy className="text-2xl mr-2 text-slate-700 group-active:text-white" />
-				Copy
+				{t("share.copy")}
 			</button>
 		</div>
 	);

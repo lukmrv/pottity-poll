@@ -1,0 +1,9 @@
+{
+	"title": {
+		"main": "Wyniki głosowania"
+	},
+	"controls": {
+		"back": "Wróć do głosowania",
+		"new": "Utwórz nowe głosowanie!"
+	}
+}

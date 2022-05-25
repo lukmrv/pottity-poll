@@ -19,7 +19,7 @@ import generateToken from "@utils/generateToken";
 import { Question } from "@services/fetchApiHelpers.types";
 
 const Home = () => {
-	const { t } = useTranslation();
+	const { t } = useTranslation(["main-page", "validations"]);
 	const router = useRouter();
 
 	const [loading, setLoading] = useState<boolean>(false);
@@ -123,16 +123,14 @@ const Home = () => {
 
 			<div className="flex flex-col items-center gap-12">
 				<HeadSection
-					mainText="Create a poll"
-					subText="Complete the below fields to create your poll."
+					mainText={t("main-page:title.main")}
+					subText={t("main-page:title.sub")}
 				/>
 
 				<main className="container p-10 rounded-md mx-auto max-w-3xl border-t-4 bg-slate-600 border-indigo-500">
 					<div className="flex flex-col items-start gap-2">
 						<label className="font-bold text-lg text-white" htmlFor="question-input">
-							Topic / Question
-							<br />
-							{t("one.two")}
+							{t("main-page:topic.header")}
 						</label>
 
 						<div className="w-full relative">
@@ -155,21 +153,26 @@ const Home = () => {
 									"w-full px-3 py-2 rounded-md border-none focus:outline focus:outline-2 text-slate-800 bg-slate-400 placeholder-slate-500 focus:outline-indigo-800",
 									{ "focus:outline-2 focus:outline-red-400": errors?.pollTopic }
 								)}
-								placeholder="Write what you'd like to poll about"
+								placeholder={t("main-page:topic.placeholder")}
 								{...register("pollTopic", {
-									required: "Topic is required!",
+									required: t("validations:validation-main-page.title"),
 								})}
 							/>
 						</div>
 
-						<span className="font-bold text-lg text-white pt-4">Options</span>
+						<span className="font-bold text-lg text-white pt-4">
+							{t("main-page:options.header")}
+						</span>
 
 						<div className="relative flex flex-col w-full gap-2">
-							{isOptionsError && (
-								<p className="absolute right-0 -top-7 text-red-400 text-xs sm:text-base sm:-top-8">
-									At least 2 options required
-								</p>
-							)}
+							{
+								// validation text for options provided not from React Hook Form, but as a "normally" defined text
+								isOptionsError && (
+									<p className="absolute right-0 -top-7 text-red-400 text-xs sm:text-base sm:-top-8">
+										{t("validations:validation-main-page.options")}
+									</p>
+								)
+							}
 
 							{/* React hook form magic */}
 							{fields.map((item, index, arr) => (
@@ -182,7 +185,9 @@ const Home = () => {
 													isOptionsError,
 											}
 										)}
-										placeholder={`Option ${index + 1}`}
+										placeholder={`${t("main-page:options.placeholder")} ${
+											index + 1
+										}`}
 										{...register(
 											`options[${index}].value` as "options.0.value",
 											{
@@ -228,7 +233,7 @@ const Home = () => {
 							<Toggle
 								type="checkbox"
 								id="multiselect"
-								labelText="Allow multiple answers"
+								labelText={t("main-page:controls.multiselect")}
 								onChange={handleToggle}
 							/>
 
@@ -251,7 +256,7 @@ const Home = () => {
 						</div>
 
 						<Button color="color-main" onClick={handleSubmit(handleCreatePollQuestion)}>
-							Create poll
+							{t("main-page:controls.create")}
 						</Button>
 					</div>
 				</main>

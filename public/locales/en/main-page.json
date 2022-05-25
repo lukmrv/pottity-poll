@@ -1,0 +1,6 @@
+{
+	"title": { "main": "Create a poll", "sub": "Complete the below fields to create your poll." },
+	"topic": { "header": "Topic / Question", "placeholder": "Write what you'd like to poll about" },
+	"options": { "header": "Options", "placeholder": "Option" },
+	"controls": { "multiselect": "Allow multiple answers", "create": "Create poll" }
+}

@@ -1,0 +1,9 @@
+{
+	"title": {
+		"main": "Poll results"
+	},
+	"controls": {
+		"back": "Go back to poll",
+		"new": "Create new poll!"
+	}
+}
