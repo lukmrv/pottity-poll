@@ -19,8 +19,6 @@ type Options = {
 const BREAKPOINT_SMALL = 640; //px
 
 function useWindowSize() {
-	// Initialize state with undefined width/height so server and client renders match
-	// Learn more here: https://joshwcomeau.com/react/the-perils-of-rehydration/
 	const [windowSize, setWindowSize] = useState<{
 		width: undefined | number;
 		height: undefined | number;
@@ -62,11 +60,11 @@ const colourStyles: StylesConfig = {
 	}),
 	input: (styles) => ({ ...styles }),
 	placeholder: (styles) => ({ ...styles }),
-	singleValue: (styles, { data }) => ({ ...styles, color: "white" }),
+	singleValue: (styles) => ({ ...styles, color: "white" }),
 };
 
 const NavBar = () => {
-	const menuOptionsRef = useRef();
+	// const menuOptionsRef = useRef<RefObject<HTMLDivElement>>();
 	const windowSize = useWindowSize();
 	const [isMenuHidden, setIsMenuHidden] = useState<boolean>(true);
 
@@ -82,8 +80,8 @@ const NavBar = () => {
 	};
 
 	useEffect(() => {
-		const handleCloseMenuListener = (e) => {
-			if (e.target !== menuOptionsRef.current && !isMenuHidden) {
+		const handleCloseMenuListener = (e: MouseEvent) => {
+			if (!isMenuHidden) {
 				closeMenu();
 			}
 		};
@@ -105,7 +103,7 @@ const NavBar = () => {
 					<Link href={`/`} passHref>
 						<img src="/logo.png" alt="" className="p-2 max-h-12" />
 					</Link>
-					{windowSize.width > BREAKPOINT_SMALL && (
+					{(windowSize.width as number) > BREAKPOINT_SMALL && (
 						<>
 							<Link href={`/`} passHref>
 								<span className="flex items-center h-full text-slate-500 hover:text-white cursor-pointer">
@@ -124,7 +122,7 @@ const NavBar = () => {
 							</Link>
 						</>
 					)}
-					{windowSize.width < BREAKPOINT_SMALL && (
+					{(windowSize.width as number) < BREAKPOINT_SMALL && (
 						<div className="relative">
 							<Button
 								color="color-theme"
@@ -137,7 +135,6 @@ const NavBar = () => {
 							</Button>
 							{/* <!-- Dropdown menu --> */}
 							<div
-								ref={menuOptionsRef}
 								className={classnames(
 									"absolute top-12 z-10 bg-white divide-y divide-gray-100 rounded shadow w-44 dark:bg-gray-700",
 									{ hidden: isMenuHidden }
@@ -176,8 +173,10 @@ const NavBar = () => {
 					<div className="flex gap-4 ml-auto text-slate-500 ">
 						<Select
 							options={languageOptions}
-							onChange={(e: { value: string; label: string }) =>
-								router.push({ pathname, query }, asPath, { locale: e.value })
+							onChange={(option) =>
+								router.push({ pathname, query }, asPath, {
+									locale: option.value,
+								})
 							}
 							defaultValue={languageOptions.filter(
 								(option) => option.value === locale
