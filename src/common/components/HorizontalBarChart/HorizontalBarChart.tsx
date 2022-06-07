@@ -17,7 +17,8 @@ const HorizontalBarChart = ({ collectedResults }: Props) => {
 			{Object.keys(collectedResults)
 				.sort((a, b) => collectedResults[b] - collectedResults[a])
 				.map((option, idx) => {
-					const percent = Math.floor((collectedResults[option] / totalResults) * 100);
+					const percent =
+						Math.floor((collectedResults[option] / totalResults) * 100) || 0;
 					const color = Math.floor(360 / (totalResults / collectedResults[option]));
 
 					const styles = {
@@ -29,14 +30,21 @@ const HorizontalBarChart = ({ collectedResults }: Props) => {
 
 					return (
 						<div key={idx}>
-							<label className="flex justify-between text-white" htmlFor={option.toLowerCase()}>
+							<label
+								className="flex justify-between text-white"
+								htmlFor={option.toLowerCase()}
+							>
 								<span>{option}</span>
 								<span>
 									{percent}% ({collectedResults[option]}{" "}
 									{collectedResults[option] === 1 ? "vote" : "votes"})
 								</span>
 							</label>
-							<div id={option.toLowerCase()} className="gradient rounded h-4" style={styles}></div>
+							<div
+								id={option.toLowerCase()}
+								className="gradient rounded h-4"
+								style={styles}
+							></div>
 						</div>
 					);
 				})}
