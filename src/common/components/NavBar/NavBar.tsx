@@ -173,7 +173,7 @@ const NavBar = () => {
 					<div className="flex gap-4 ml-auto text-slate-500 ">
 						<Select
 							options={languageOptions}
-							onChange={(option) =>
+							onChange={(option: any) =>
 								router.push({ pathname, query }, asPath, {
 									locale: option.value,
 								})
