@@ -29,25 +29,6 @@ const Home = (): any => {
   const [loading, setLoading] = useState<boolean>(false);
   const [isOptionsError, setIsOptionsError] = useState<boolean>(false);
 
-  useEffect(() => {
-    console.log(123);
-    const getTest = async () => {
-      const response = await fetch(`http://localhost:3000/api/test`);
-
-      if (!response.ok) {
-        throw new Error(response.statusText);
-      }
-
-      return await response.json();
-    };
-
-    getTest()
-      .then((response) => console.log("123", response))
-      .catch((error) => {
-        notify("error", error.message, "top-center");
-      });
-  }, []);
-
   const {
     register,
     control,
