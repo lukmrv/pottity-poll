@@ -291,10 +291,13 @@ const Home = (): any => {
           </div>
         </main>
 
-        <CustomTagElement as="infakt-widget-dashboard" />
+        <div style={{ width: "100%", maxWidth: "1400px" }}>
+          <CustomTagElement as="infakt-widget-dashboard" />
+        </div>
       </div>
     </>
   );
 };
 
 export default Home;
+infa;
